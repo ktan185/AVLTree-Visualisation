@@ -158,15 +158,15 @@ public class AVLTree {
     } else {
       // if the root has 0 to 1 child:
       if (root.left == null)  {
-        return root.left;
-      } else if (root.right == null) {
         return root.right;
+      } else if (root.right == null) {
+        return root.left;
       }
       // if the root has 2 children:
       // Go to the right child, and find the next biggest element in the tree and replace the node with that node.
       root.key = findMin(root.right);
       // Delete that node.  
-      root.right = deleteHelper(root.right, key);
+      root.right = deleteHelper(root.right, root.key);
     }
 
     // Update the height of the current node.
