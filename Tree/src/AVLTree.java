@@ -114,30 +114,7 @@ public class AVLTree {
     } else {
       return root; // Otherwise, the key already exists in the tree, return (NO DUPLICATES).
     }
-
-    // Update the height of the current node;
-    root.height = max(height(root.left), height(root.right)) + 1;
-
-    // Get the balance factor of the current node.
-    int bf = getBalanceFactor(root);
-
-    // If the balance factor is greater than 1, and the key to be inserted is less than the key of the left child,
-    // Perform Right rotation.
-    if (bf > 1 && key < root.left.key) {
-      root = rightRotation(root);
-    // If the balance factor is less than -1, and the key to be inserted is greater than the key of the right child,
-    // Perform Left rotation.
-    } else if (bf < -1 && key > root.right.key) {
-      root = leftRotation(root);
-      // If the balance factor is greater than 1, and the key to be inserted is greater than the key of the left chid,
-      // Perform left right rotation.
-    } else if (bf > 1 && key > root.left.key) {
-      root = leftRightRotation(root);
-      // If the balance factor is less than -1, and the key to be inserted is less than the key of the right chid,
-      // Perform right left rotation.
-    } else if (bf < -1 && key < root.right.key) {
-      root = rightLeftRotation(root);
-    }
+    update(root, key);
     return root;
   }
 
@@ -168,7 +145,11 @@ public class AVLTree {
       // Delete that node.  
       root.right = deleteHelper(root.right, root.key);
     }
+    update(root, key);
+    return root;
+  }
 
+  private void update(Node node, int key) {
     // Update the height of the current node.
     root.height = max(height(root.left),height(root.right)) + 1;
 
@@ -192,7 +173,6 @@ public class AVLTree {
     } else if (bf < -1 && key < root.right.key) {
       root = rightLeftRotation(root);
     }
-    return root;
   }
 
   // helper function to determine the smallest value in the tree.
