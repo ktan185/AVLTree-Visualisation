@@ -1,22 +1,36 @@
 package src;
 
+import java.util.Scanner;
+
 public class Main {
 
   public static void main(String[] args) {
 
+    Scanner sc = new Scanner(System.in);
     AVLTree tree = new AVLTree();
-    tree.root = tree.insert(tree.root, 3);
-    tree.root = tree.insert(tree.root, 2);
-    tree.root = tree.insert(tree.root, 1);
-    tree.root = tree.insert(tree.root, 7);
-    tree.root = tree.insert(tree.root, 0);
-    tree.root = tree.insert(tree.root, 5);
-    tree.root = tree.insert(tree.root, 8);
-    tree.root = tree.insert(tree.root, 4);
-    tree.root = tree.insert(tree.root, 6);
-    tree.root = tree.insert(tree.root, 9);
-    TreePrinter.print(tree.root);
-
+    
+    while (true) {
+      System.out.println("Choose an integer/s to insert: ");
+      String val = sc.nextLine();
+      try {
+        String[] array = val.split(" ");
+        for (String s : array) {
+            int key = Integer.parseInt(s);
+            tree.insert(key);
+        }
+        TreePrinter.print(tree.root);
+      } catch (Exception e) {
+        System.out.println("Input invalid, please try again.");
+      }
+      System.out.println("Would you like to exit: y/n");
+				String yesNo = sc.nextLine();
+				yesNo = yesNo.toLowerCase();
+			  if (yesNo.startsWith("y")) {
+					break;
+			  }
+      
+    }
+    sc.close();
   }
 
 }
